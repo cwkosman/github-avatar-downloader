@@ -28,7 +28,6 @@ function callback (err, response, body) {
       //TODO - Get file extension of avatar as saved on Github, rather than appending .jpg
       //'login' and 'avatar_url' are keys on the returned GitHub API objects.
       downloadImageByURL(contributor.avatar_url, `./avatars/${contributor.login}.jpg`);
-      console.log()
     });
   } else if (err) {
     throw (err);
