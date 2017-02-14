@@ -1,4 +1,5 @@
 var request = require('request');
+var fs = require('fs');
 
 var GITHUB_USER = 'cwkosman';
 var GITHUB_TOKEN = 'c29cfb18893c4c4b647d69cba86ce90b6975bdcc';
@@ -29,4 +30,18 @@ function getRepoContributors(repoOwner, repoName, cb) {
   request(requestOptions, cb);
 }
 
+function downloadImageByURL(url, filePath) {
+  request.get(url)
+    .on('error', function (err) {
+      throw err;
+    })
+    .pipe(fs.createWriteStream(filePath))
+    .on('finish', function () {
+      console.log('Download complete!');
+    });
+}
+
 getRepoContributors("jquery", "jquery", callback);
+
+//Test function
+downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
