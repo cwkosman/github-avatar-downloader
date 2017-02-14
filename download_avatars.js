@@ -2,7 +2,6 @@ var request = require('request');
 var fs = require('fs');
 
 var GITHUB_USER = 'cwkosman';
-var GITHUB_TOKEN = 'c29cfb18893c4c4b647d69cba86ce90b6975bdcc';
 
 console.log('Welcome to the Github Avatar Downloader!');
 
@@ -29,6 +28,7 @@ function callback (err, response, body) {
       //TODO - Get file extension of avatar as saved on Github, rather than appending .jpg
       //'login' and 'avatar_url' are keys on the returned GitHub API objects.
       downloadImageByURL(contributor.avatar_url, `./avatars/${contributor.login}.jpg`);
+      console.log()
     });
   } else if (err) {
     throw (err);
