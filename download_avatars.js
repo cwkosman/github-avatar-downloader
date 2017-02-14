@@ -42,4 +42,4 @@ function getRepoContributors(repoOwner, repoName, cb) {
   request(requestOptions, cb);
 }
 
-getRepoContributors("jquery", "jquery", callback);
+getRepoContributors(process.argv[2], process.argv[3], callback);
