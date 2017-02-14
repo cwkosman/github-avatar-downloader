@@ -13,7 +13,7 @@ function downloadImageByURL(url, filePath) {
     })
     .pipe(fs.createWriteStream(filePath))
     .on('finish', function () {
-      console.log('Download complete!');
+      console.log(`Downloaded ${filePath}`);
     });
 }
 
@@ -27,8 +27,8 @@ function callback (err, response, body) {
     //console.log(pageNumber);
     contributors.forEach((contributor) => {
       //TODO - Get file extension of avatar as saved on Github, rather than appending .jpg
-      var filePath = `./avatars/${contributor.login}.jpg`;
-      downloadImageByURL(contributor.avatar_url, filePath);
+      //'login' and 'avatar_url' are keys on the returned GitHub API objects.
+      downloadImageByURL(contributor.avatar_url, `./avatars/${contributor.login}.jpg`);
     });
   } else if (err) {
     throw (err);
@@ -42,6 +42,8 @@ function getRepoContributors(repoOwner, repoName, cb) {
   }
   var requestOptions = {
     url: 'https://' + GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors',
+    //Required for authentication to GitHub API, specified here as username
+    //https://developer.github.com/v3/#user-agent-required
     headers: {
       'User-Agent': 'cwkosman'
     }
