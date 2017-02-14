@@ -7,8 +7,10 @@ console.log('Welcome to the Github Avatar Downloader!');
 
 function callback (err, response, body) {
   if (err) { throw err; }
-  console.log(response.statusCode);
-  console.log(body);
+  var contributors = JSON.parse(body);
+  contributors.forEach((contributor) => {
+    console.log(contributor.avatar_url);
+  });
 }
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -19,7 +21,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
     }
   };
   request(requestOptions, cb);
-  console.log(cb);
 }
 
 getRepoContributors("jquery", "jquery", callback);
